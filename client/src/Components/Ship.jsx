@@ -4,7 +4,7 @@ const Ship = ({ size }) => {
   let mapShip = new Array(size - 2).fill(0);
 
   return (
-    <div className="ship-container">
+    <div className="ship-container" draggable="true">
       <div className='ship ship-head'></div>
       {mapShip.map( (ship, index) => {
         return <div className="ship ship-body" key={index}></div>
