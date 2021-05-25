@@ -9,7 +9,7 @@ const Board = ({ type }) => {
   const handlePlayerMove = (e) => {
     let square = document.getElementById(e.target.id);
 
-    if (!square.classList.contains('clicked')) {
+    if (!square.classList.contains('clicked') && type === 'c1') {
       square.classList.add('clicked');
 
       let [x, y] = e.target.id.split('-')[1];

@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+## Compiled / Bundled Files ##
+client/dist/bundle.js
+
 # testing
 /coverage
 

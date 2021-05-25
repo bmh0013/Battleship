@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './Components/Board.jsx';
+import StartButton from './Components/StartButton.jsx';
 
 const App = () => {
   return (
@@ -8,6 +9,7 @@ const App = () => {
         <Board type="p1"/>
         <Board type="c1"/>
       </div>
+
     </div>
   );
 }
