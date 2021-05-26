@@ -8,7 +8,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       gameStarted: false,
-      ships: 5
+      board: new Array(10).fill( new Array(10).fill(0) ),
     };
 
     this.handleStartGame = this.handleStartGame.bind(this);
@@ -35,19 +35,19 @@ class App extends React.Component {
     return (
       <div className="app">
         <div className="button-container">
-          <Button type='Start Game' handleClick={this.handleStartGame} />
-          <Button type='Rotate Ships' handleClick={this.handleRotateShips} />
+          <Button type='Start Game' board={this.state.board} handleClick={this.handleStartGame} />
+          <Button type='Rotate Ships' board={this.state.board} handleClick={this.handleRotateShips} />
         </div>
         <div className="board-container">
           <Board type="p1" gameStarted={this.state.gameStarted} />
           <Board type="c1" gameStarted={this.state.gameStarted} />
         </div>
         <div id="outer-ship-container">
-          <Ship size={5} />
-          <Ship size={4} />
-          <Ship size={3} />
-          <Ship size={3} />
-          <Ship size={2} />
+          <Ship size={5} board={this.state.board} />
+          <Ship size={4} board={this.state.board} />
+          <Ship size={3} board={this.state.board} />
+          <Ship size={3} board={this.state.board} />
+          <Ship size={2} board={this.state.board} />
         </div>
       </div>
     );
