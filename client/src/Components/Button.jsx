@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-const StartButton = ({ handleStartGame }) => {
+const Button = ({ handleClick, type }) => {
   return (
-    <button className='start-button' onClick={handleStartGame}>
-      Start Game
+    <button className="button" onClick={handleClick}>
+      {type}
     </button>
-  )
-}
+  );
+};
 
-export default StartButton;
+export default Button;
