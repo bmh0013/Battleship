@@ -8,20 +8,36 @@ class App extends React.Component {
     super(props);
     this.state = {
       gameStarted: false,
-      board: new Array(10).fill(new Array(10).fill(0)),
+      board: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ],
     };
 
     this.handleStartGame = this.handleStartGame.bind(this);
     this.handleRotateShips = this.handleRotateShips.bind(this);
     this.selectShip = this.selectShip.bind(this);
-    this.placeShip = this.placeShip.bind(this);
+    this.getCoordiantes = this.getCoordiantes.bind(this);
     this.handlePlayerMove = this.handlePlayerMove.bind(this);
   }
 
   handleStartGame() {
-    this.setState({
-      gameStarted: true,
-    });
+    // Can maybe replace with a state that tracks # of ships left
+    let shipsToPlace = document.querySelector('#outer-ship-container').children.length;
+
+    if (!shipsToPlace) {
+      this.setState({
+        gameStarted: true,
+      });
+    }
   }
 
   handleRotateShips() {
@@ -38,26 +54,6 @@ class App extends React.Component {
     }
   }
 
-  placeShip(e) {
-    let ship = document.querySelector(".ship-selected");
-    let size = ship.getAttribute("size");
-
-    document.querySelectorAll(".squares").forEach((sqr) => {
-      sqr.removeEventListener("click", this.placeShip);
-    });
-
-    let type = e.target.id.split("-")[0];
-    let [x, y] = e.target.id.split("-")[1];
-
-    if (type === "p1" && this.state.board[+x][+y] === 0) {
-      if (+x + +size <= 10) {
-        for (let i = +x; i < +x + +size; i++) {
-          console.log(i);
-        }
-      }
-    }
-  }
-
   selectShip(e) {
     let selected = document.querySelectorAll(".ship-selected");
     let children = e.target.parentNode.childNodes;
@@ -71,8 +67,70 @@ class App extends React.Component {
     });
 
     document.querySelectorAll(".squares").forEach((sqr) => {
-      sqr.addEventListener("click", this.placeShip);
+      sqr.addEventListener("click", this.getCoordiantes);
     });
+  }
+
+  placeShip(x, y, size, direction) {
+    let ship = document.querySelector('.ship-selected').parentNode;
+    let board = this.state.board.slice();
+
+    if (direction === "vertical") {
+      for (let i = x; i < x + size; i++) {
+        board[i][y] = 1
+      }
+    } else {
+      for (let i = y; i < y + size; i++) {
+        board[x][i] = 1
+      }
+    }
+
+    ship.remove()
+    console.log(board)
+  }
+
+  getCoordiantes(e) {
+    let direction = "vertical";
+    let ship = document.querySelector(".ship-selected");
+    let size = Number(ship.getAttribute("size"));
+
+    document.querySelectorAll(".squares").forEach((sqr) => {
+      sqr.removeEventListener("click", this.getCoordiantes);
+    });
+
+    let type = e.target.id.split("-")[0];
+    let [x, y] = e.target.id.split("-")[1];
+
+    if (type === "p1") {
+      if (this.checkValidPlacement(+x, +y, size, direction)) {
+        this.placeShip(+x, +y, size, direction)
+      }
+    }
+  }
+
+  checkValidPlacement(x, y, size, direction) {
+    if (direction === "vertical") {
+      if (x + size > 10) {
+        return false;
+      }
+
+      for (let i = x; i < x + size; i++) {
+        if (this.state.board[i][y] === 1) {
+          return false;
+        }
+      }
+    } else {
+      if (y + size > 10) {
+        return false;
+      }
+      for (let i = y; i < y + size; i++) {
+        if (this.state.board[x][i] === 1) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 
   handlePlayerMove(e, type) {
@@ -111,31 +169,11 @@ class App extends React.Component {
           />
         </div>
         <div id="outer-ship-container">
-          <Ship
-            size={5}
-            placeShip={this.placeShip}
-            selectShip={this.selectShip}
-          />
-          <Ship
-            size={4}
-            placeShip={this.placeShip}
-            selectShip={this.selectShip}
-          />
-          <Ship
-            size={3}
-            placeShip={this.placeShip}
-            selectShip={this.selectShip}
-          />
-          <Ship
-            size={3}
-            placeShip={this.placeShip}
-            selectShip={this.selectShip}
-          />
-          <Ship
-            size={2}
-            placeShip={this.placeShip}
-            selectShip={this.selectShip}
-          />
+          <Ship size={5} selectShip={this.selectShip} />
+          <Ship size={4} selectShip={this.selectShip} />
+          <Ship size={3} selectShip={this.selectShip} />
+          <Ship size={3} selectShip={this.selectShip} />
+          <Ship size={2} selectShip={this.selectShip} />
         </div>
       </div>
     );
