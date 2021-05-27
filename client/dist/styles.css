@@ -1,9 +1,22 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 /* ### APP ### */
 .app {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url('./Battleship.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: -80px;
+  background-color: rgba(255,255,255,0.6);
+  width: 100bh;
+  height: 100vh;
+
 }
 
 /* ### BOARD ### */
@@ -13,6 +26,7 @@
   justify-content: space-around;
   align-items: center;
 }
+
 .board {
   background-color: rgb(0, 162, 255);
   min-width: 320px;
@@ -33,6 +47,9 @@
 }
 .hit {
   background-color: red;
+}
+.winner-winner {
+  font-size: 70px;
 }
 
 /* ### START BUTTON ### */
@@ -57,29 +74,42 @@
 
 /* ### SHIPS ### */
 
-.ship {
+.destroyer, .cruiser, .battleship, .carrier {
   width: 30px;
   height: 30px;
 }
 
+.rotate-ship-container {
+  display: flex;
+  flex-direction: column;
+}
+
 #outer-ship-container {
   display: flex;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  width: 250px;
+  height: 190px;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.788);
+  padding: 10px;
 }
 
 .ship-container {
   margin: 10px;
 }
 
-.ship-head {
+.head {
   background-color: grey;
   border-top-right-radius: 50%;
   border-top-left-radius: 50%;
 }
 
-.ship-body {
+.body {
   background-color: grey;
 }
-.ship-tail {
+.tail {
   background-color: grey;
   border-bottom-right-radius: 50%;
   border-bottom-left-radius: 50%;
@@ -90,5 +120,4 @@
 
 .horizontal {
   transform: rotate(90deg);
-  margin-top: 40px;
 }
