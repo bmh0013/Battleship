@@ -44,13 +44,9 @@ class App extends React.Component {
     let list = document.getElementById("outer-ship-container").classList;
 
     if (!list.contains("horizontal")) {
-      document
-        .getElementById("outer-ship-container")
-        .classList.add("horizontal");
+      list.add("horizontal");
     } else {
-      document
-        .getElementById("outer-ship-container")
-        .classList.remove("horizontal");
+      list.remove("horizontal");
     }
   }
 
@@ -86,12 +82,11 @@ class App extends React.Component {
     }
 
     ship.remove()
-    console.log(board)
   }
 
   getCoordiantes(e) {
-    let direction = "vertical";
     let ship = document.querySelector(".ship-selected");
+    let direction = document.querySelector('#outer-ship-container').classList.contains("horizontal") ? "horizontal" : "vertical";
     let size = Number(ship.getAttribute("size"));
 
     document.querySelectorAll(".squares").forEach((sqr) => {
