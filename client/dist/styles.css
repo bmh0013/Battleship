@@ -42,12 +42,7 @@ body {
   height: 30px;
   border: 1px solid black;
 }
-.miss {
-  background-color: white;
-}
-.hit {
-  background-color: red;
-}
+
 .winner-winner {
   font-size: 70px;
 }
@@ -120,4 +115,11 @@ body {
 
 .horizontal {
   transform: rotate(90deg);
+}
+
+.miss {
+  background-color: white;
+}
+.hit {
+  background-color: red;
 }

@@ -8,15 +8,18 @@ class App extends React.Component {
     super(props);
     this.state = {
       gameStarted: false,
-      isWinner: false,
+      isWinner: null,
       player: {
+        type: 'player',
         board: this.createBoard(),
         hp: 17,
       },
       computer: {
+        type: 'computer',
         board: this.createBoard(),
         hp: 17,
       },
+      turn: 'player'
     };
 
     this.handleStartGame = this.handleStartGame.bind(this);
@@ -215,7 +218,8 @@ class App extends React.Component {
     if (
       !square.classList.contains("clicked") &&
       type === "c1" &&
-      this.state.gameStarted
+      this.state.gameStarted &&
+      this.state.turn === 'player'
     ) {
       square.classList.add("clicked");
 
@@ -223,24 +227,55 @@ class App extends React.Component {
       let move = this.state.computer.board[x][y] === 0 ? "miss" : "hit";
 
       if (move === 'hit') {
-        this.checkIfWinner('computer')
+        this.checkIfLost('computer')
       }
+
       square.classList.add(move);
+
+      this.handleComputerMove()
+      // this.setState({turn: 'computer'});
     }
   }
 
-  checkIfWinner(user) {
-    if (this.state.computer.hp < 2) {
-      this.setState({
-        isWinner: true,
-        gameStarted: false,
-      })
+  handleComputerMove() {
+    const allSquares = document.querySelectorAll('.squares:not(.c1):not(.clicked)');
+    const square = allSquares[Math.floor(Math.random() * allSquares.length)];
+    const [x, y] = square.id.split('-')[1];
 
-    } else {
+    const move = this.state.player.board[x][y] === 0 ? "miss" : "hit";
+    square.classList.add('clicked', move);
+
+    if (move === 'hit') {
+      this.checkIfLost('player');
+    }
+  }
+
+  checkIfLost(user) {
+    if ( user === 'computer') {
+      if (this.state[user].hp < 2) {
+        this.setState({
+          isWinner: true,
+          gameStarted: false,
+        })
+      }
       this.setState(prevState => {
         let computer = Object.assign({}, prevState[user]);
         computer.hp = computer.hp - 1;
+        console.log('computer:', computer.hp);
         return { computer }
+      })
+    } else {
+      if (this.state[user].hp < 2) {
+        this.setState({
+          isWinner: false,
+          gameStarted: false,
+        })
+      }
+      this.setState(prevState => {
+        let player = Object.assign({}, prevState[user]);
+        player.hp = player.hp - 1;
+        console.log('player:', player.hp);
+        return { player }
       })
     }
   }
@@ -252,7 +287,7 @@ class App extends React.Component {
           <Button type="Start Game" handleClick={this.handleStartGame} />
           <Button type="Reset Game" handleClick={this.handleResetGame} />
         </div>
-        {this.state.isWinner && <div className="winner-winner">You Won!!!</div>}
+        {this.state.isWinner !== null && (this.state.isWinner ? <div className="winner-winner"> You Won!!!</div> : <div className="winner-winner">Computer Won!</div>)}
         <div className="board-container">
           <Board
             type="p1"

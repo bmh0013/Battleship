@@ -5,7 +5,7 @@ const Squares = ({ type, id, handlePlayerMove }) => {
 
   return (
     <div
-      className="squares"
+      className={"squares " + type}
       id={id}
       onClick={(e) => {
         handlePlayerMove(e, type);
