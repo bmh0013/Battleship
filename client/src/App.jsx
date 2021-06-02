@@ -10,16 +10,16 @@ class App extends React.Component {
       gameStarted: false,
       isWinner: null,
       player: {
-        type: 'player',
+        type: "player",
         board: this.createBoard(),
         hp: 17,
       },
       computer: {
-        type: 'computer',
+        type: "computer",
         board: this.createBoard(),
         hp: 17,
       },
-      turn: 'player'
+      turn: "player",
     };
 
     this.handleStartGame = this.handleStartGame.bind(this);
@@ -32,7 +32,8 @@ class App extends React.Component {
 
   handleStartGame() {
     // Can maybe replace with a state that tracks # of ships left
-    let shipsToPlace = document.querySelector('#outer-ship-container').children.length;
+    let shipsToPlace = document.querySelector("#outer-ship-container").children
+      .length;
 
     if (!shipsToPlace) {
       this.setComputerBoard();
@@ -49,22 +50,22 @@ class App extends React.Component {
 
   setComputerBoard() {
     let board = this.state.computer.board.slice();
-    let ships = [2, 3, 3, 4, 5]
+    let ships = [2, 3, 3, 4, 5];
 
-    ships.forEach(ship => {
-      this.placeComputerShips(ship, board)
-    })
+    ships.forEach((ship) => {
+      this.placeComputerShips(ship, board);
+    });
     console.log(board);
   }
 
   placeComputerShips(size, board) {
     let randomDirection = Math.floor(Math.random() * 2);
-    let direction = ['horizontal', 'vertical'][randomDirection];
+    let direction = ["horizontal", "vertical"][randomDirection];
 
-    if (direction === 'vertical') {
+    if (direction === "vertical") {
       let x = Math.floor(Math.random() * 9);
       let y = Math.floor(Math.random() * 10);
-      if (this.checkValidPlacement(x, y, size, direction, 'computer')) {
+      if (this.checkValidPlacement(x, y, size, direction, "computer")) {
         for (let i = x; i < x + size; i++) {
           board[i][y] = size;
         }
@@ -74,7 +75,7 @@ class App extends React.Component {
     } else {
       let x = Math.floor(Math.random() * 10);
       let y = Math.floor(Math.random() * 9);
-      if (this.checkValidPlacement(x, y, size, direction, 'computer')) {
+      if (this.checkValidPlacement(x, y, size, direction, "computer")) {
         for (let i = y; i < y + size; i++) {
           board[x][i] = size;
         }
@@ -82,7 +83,6 @@ class App extends React.Component {
         this.placeComputerShips(size, board);
       }
     }
-
   }
 
   createBoard() {
@@ -90,7 +90,7 @@ class App extends React.Component {
     for (let i = 0; i < 10; i++) {
       let row = [];
       for (let j = 0; j < 10; j++) {
-        row.push(0)
+        row.push(0);
       }
       board.push(row);
     }
@@ -120,60 +120,64 @@ class App extends React.Component {
       child.classList.add("ship-selected");
     });
 
-    document.querySelectorAll(".squares").forEach((sqr) => {
+    document.querySelectorAll(".square").forEach((sqr) => {
       sqr.addEventListener("click", this.getCoordiantes);
     });
   }
 
-  placeShip(x, y, size, direction, user = 'player') {
-    let ship = document.querySelector('.ship-selected').parentNode;
+  placeShip(x, y, size, direction, user = "player") {
+    let ship = document.querySelector(".ship-selected").parentNode;
     let board = this.state[user].board.slice();
 
     // Updates the matrix in state
     if (direction === "vertical") {
       for (let i = x; i < x + size; i++) {
-        board[i][y] = size
+        board[i][y] = size;
       }
     } else {
       for (let i = y; i < y + size; i++) {
-        board[x][i] = size
+        board[x][i] = size;
       }
     }
 
     // Updates the DOM to show ships on the board
     if (direction === "vertical") {
       for (let i = x; i < x + size; i++) {
-        let grid = document.getElementById('p1-' + i + y);
+        let grid = document.getElementById("p1-" + i + y);
         if (i === x) {
-          grid.classList.add('head')
+          grid.classList.add("head");
         } else if (i === x + size - 1) {
-          grid.classList.add('tail')
+          grid.classList.add("tail");
         } else {
-          grid.classList.add('body')
+          grid.classList.add("body");
         }
       }
     } else {
       for (let i = y; i < y + size; i++) {
-        let grid = document.getElementById('p1-' + x + i);
+        let grid = document.getElementById("p1-" + x + i);
         if (i === y + size - 1) {
-          grid.classList.add('head', 'horizontal')
+          grid.classList.add("head", "horizontal");
         } else if (i === y) {
-          grid.classList.add('tail', 'horizontal')
+          grid.classList.add("tail", "horizontal");
         } else {
-          grid.classList.add('body', 'horizontal')
+          grid.classList.add("body", "horizontal");
         }
       }
     }
 
-    ship.remove()
+    ship.remove();
   }
 
   getCoordiantes(e) {
     let ship = document.querySelector(".ship-selected");
-    let direction = document.querySelector('#outer-ship-container').classList.contains("horizontal") ? "horizontal" : "vertical";
+    let direction = document
+      .querySelector("#outer-ship-container")
+      .classList.contains("horizontal")
+      ? "horizontal"
+      : "vertical";
     let size = Number(ship.getAttribute("size"));
 
-    document.querySelectorAll(".squares").forEach((sqr) => {
+    document.querySelectorAll(".square").forEach((sqr) => {
       sqr.removeEventListener("click", this.getCoordiantes);
     });
 
@@ -182,12 +186,12 @@ class App extends React.Component {
 
     if (type === "p1") {
       if (this.checkValidPlacement(+x, +y, size, direction)) {
-        this.placeShip(+x, +y, size, direction)
+        this.placeShip(+x, +y, size, direction);
       }
     }
   }
 
-  checkValidPlacement(x, y, size, direction, user = 'player') {
+  checkValidPlacement(x, y, size, direction, user = "player") {
     if (direction === "vertical") {
       if (x + size > 10) {
         return false;
@@ -212,71 +216,74 @@ class App extends React.Component {
     return true;
   }
 
-  handlePlayerMove(e, type) {
-    let square = document.getElementById(e.target.id);
+  handlePlayerMove(coordinates, e) {
+    console.log(coordinates);
+    // let square = document.getElementById(e.target.id);
 
-    if (
-      !square.classList.contains("clicked") &&
-      type === "c1" &&
-      this.state.gameStarted &&
-      this.state.turn === 'player'
-    ) {
-      square.classList.add("clicked");
+    // if (
+    //   !square.classList.contains("clicked") &&
+    //   type === "c1" &&
+    //   this.state.gameStarted &&
+    //   this.state.turn === "player"
+    // ) {
+    //   square.classList.add("clicked");
 
-      let [x, y] = e.target.id.split("-")[1];
-      let move = this.state.computer.board[x][y] === 0 ? "miss" : "hit";
+    //   let [x, y] = e.target.id.split("-")[1];
+    //   let move = this.state.computer.board[x][y] === 0 ? "miss" : "hit";
 
-      if (move === 'hit') {
-        this.checkIfLost('computer')
-      }
+    //   if (move === "hit") {
+    //     this.checkIfLost("computer");
+    //   }
 
-      square.classList.add(move);
+    //   square.classList.add(move);
 
-      this.handleComputerMove()
-      // this.setState({turn: 'computer'});
-    }
+    //   this.handleComputerMove();
+    //   // this.setState({turn: 'computer'});
+    // }
   }
 
   handleComputerMove() {
-    const allSquares = document.querySelectorAll('.squares:not(.c1):not(.clicked)');
+    const allSquares = document.querySelectorAll(
+      ".square:not(.c1):not(.clicked)"
+    );
     const square = allSquares[Math.floor(Math.random() * allSquares.length)];
-    const [x, y] = square.id.split('-')[1];
+    const [x, y] = square.id.split("-")[1];
 
     const move = this.state.player.board[x][y] === 0 ? "miss" : "hit";
-    square.classList.add('clicked', move);
+    square.classList.add("clicked", move);
 
-    if (move === 'hit') {
-      this.checkIfLost('player');
+    if (move === "hit") {
+      this.checkIfLost("player");
     }
   }
 
   checkIfLost(user) {
-    if ( user === 'computer') {
+    if (user === "computer") {
       if (this.state[user].hp < 2) {
         this.setState({
           isWinner: true,
           gameStarted: false,
-        })
+        });
       }
-      this.setState(prevState => {
+      this.setState((prevState) => {
         let computer = Object.assign({}, prevState[user]);
         computer.hp = computer.hp - 1;
-        console.log('computer:', computer.hp);
-        return { computer }
-      })
+        console.log("computer:", computer.hp);
+        return { computer };
+      });
     } else {
       if (this.state[user].hp < 2) {
         this.setState({
           isWinner: false,
           gameStarted: false,
-        })
+        });
       }
-      this.setState(prevState => {
+      this.setState((prevState) => {
         let player = Object.assign({}, prevState[user]);
         player.hp = player.hp - 1;
-        console.log('player:', player.hp);
-        return { player }
-      })
+        console.log("player:", player.hp);
+        return { player };
+      });
     }
   }
 
@@ -284,6 +291,19 @@ class App extends React.Component {
     return (
       <div className="app">
         <div className="button-container">
+          <Button type="Start Game" handleClick={this.handleStartGame} />
+          <Button type="Reset Game" handleClick={this.handleResetGame} />
+        </div>
+        <div className="board-container">
+          <Board
+            type="p"
+            gameStarted={this.state.gameStarted}
+            handlePlayerMove={this.handlePlayerMove}
+          />
+        </div>
+        <div className="ship-container">ships</div>
+      </div>
+      /* <div className="button-container">
           <Button type="Start Game" handleClick={this.handleStartGame} />
           <Button type="Reset Game" handleClick={this.handleResetGame} />
         </div>
@@ -309,8 +329,7 @@ class App extends React.Component {
             <Ship size={2} selectShip={this.selectShip} />
           </div>
           <Button type="Rotate Ships" handleClick={this.handleRotateShips} />
-        </div>
-      </div>
+        </div> */
     );
   }
 }

@@ -16,7 +16,6 @@ body {
   background-color: rgba(255,255,255,0.6);
   width: 100bh;
   height: 100vh;
-
 }
 
 /* ### BOARD ### */
@@ -37,7 +36,7 @@ body {
   flex-wrap: wrap;
   margin: 20px;
 }
-.squares {
+.square {
   width: 30px;
   height: 30px;
   border: 1px solid black;
@@ -48,6 +47,10 @@ body {
 }
 
 /* ### START BUTTON ### */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
 .button {
   padding: 10px;
   background: linear-gradient(290deg, rgba(249,50,50) 0%, rgba(255,130,0) 100%);
@@ -57,7 +60,6 @@ body {
   border-radius: 10px;
   text-shadow: 2px 2px 2px rgb(173, 78, 0);
   box-shadow: 2px 2px 4px grey;
-  margin-right: 20px;
 }
 .button:hover {
   cursor: pointer;
