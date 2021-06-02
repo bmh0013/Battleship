@@ -31,17 +31,9 @@ class App extends React.Component {
   }
 
   handleStartGame() {
-    // Can maybe replace with a state that tracks # of ships left
-    let shipsToPlace = document.querySelector("#outer-ship-container").children
-      .length;
-
-    if (!shipsToPlace) {
-      this.setComputerBoard();
-
-      this.setState({
-        gameStarted: true,
-      });
-    }
+    this.setState({
+      gameStarted: true,
+    });
   }
 
   handleResetGame() {

@@ -12,6 +12,7 @@ const Board = ({ type, gameStarted, handlePlayerMove }) => {
           coordinates={index}
           key={index}
           handlePlayerMove={handlePlayerMove}
+          gameStarted={gameStarted}
         />
       ))}
     </div>

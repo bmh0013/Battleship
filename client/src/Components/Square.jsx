@@ -12,9 +12,11 @@ class Square extends React.Component {
   }
 
   getCoordiantes() {
-    let element = this.wrapper.current;
-    element.removeEventListener('click', this.getCoordiantes);
-    this.props.handlePlayerMove(element.attributes.data.value);
+    if (this.props.gameStarted) {
+      let divSquare = this.wrapper.current;
+      divSquare.removeEventListener('click', this.getCoordiantes);
+      this.props.handlePlayerMove(divSquare.attributes.data.value);
+    }
   }
 
   render() {
