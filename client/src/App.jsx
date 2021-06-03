@@ -1,5 +1,6 @@
 import React from "react";
 import Board from "./Components/Board.jsx";
+import ComputerBoard from "./Components/ComputerBoard.jsx";
 import Button from "./Components/Button.jsx";
 import Ship from "./Components/Ship.jsx";
 
@@ -14,12 +15,6 @@ class App extends React.Component {
         board: this.createBoard(),
         hp: 17,
       },
-      computer: {
-        type: "computer",
-        board: this.createBoard(),
-        hp: 17,
-      },
-      turn: "player",
     };
 
     this.handleStartGame = this.handleStartGame.bind(this);
@@ -38,43 +33,6 @@ class App extends React.Component {
 
   handleResetGame() {
     window.location.reload(false);
-  }
-
-  setComputerBoard() {
-    let board = this.state.computer.board.slice();
-    let ships = [2, 3, 3, 4, 5];
-
-    ships.forEach((ship) => {
-      this.placeComputerShips(ship, board);
-    });
-    console.log(board);
-  }
-
-  placeComputerShips(size, board) {
-    let randomDirection = Math.floor(Math.random() * 2);
-    let direction = ["horizontal", "vertical"][randomDirection];
-
-    if (direction === "vertical") {
-      let x = Math.floor(Math.random() * 9);
-      let y = Math.floor(Math.random() * 10);
-      if (this.checkValidPlacement(x, y, size, direction, "computer")) {
-        for (let i = x; i < x + size; i++) {
-          board[i][y] = size;
-        }
-      } else {
-        this.placeComputerShips(size, board);
-      }
-    } else {
-      let x = Math.floor(Math.random() * 10);
-      let y = Math.floor(Math.random() * 9);
-      if (this.checkValidPlacement(x, y, size, direction, "computer")) {
-        for (let i = y; i < y + size; i++) {
-          board[x][i] = size;
-        }
-      } else {
-        this.placeComputerShips(size, board);
-      }
-    }
   }
 
   createBoard() {
@@ -287,8 +245,7 @@ class App extends React.Component {
           <Button type="Reset Game" handleClick={this.handleResetGame} />
         </div>
         <div className="board-container">
-          <Board
-            type="p"
+          <ComputerBoard
             gameStarted={this.state.gameStarted}
             handlePlayerMove={this.handlePlayerMove}
           />

@@ -15,7 +15,7 @@ class Square extends React.Component {
     if (this.props.gameStarted) {
       let divSquare = this.wrapper.current;
       divSquare.removeEventListener('click', this.getCoordiantes);
-      this.props.handlePlayerMove(divSquare.attributes.data.value);
+      this.props.handlePlayerMove(divSquare.attributes.data.value, divSquare);
     }
   }
 
