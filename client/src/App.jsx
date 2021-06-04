@@ -1,5 +1,5 @@
 import React from "react";
-import Board from "./Components/Board.jsx";
+import PlayerBoard from "./Components/PlayerBoard.jsx";
 import ComputerBoard from "./Components/ComputerBoard.jsx";
 import Button from "./Components/Button.jsx";
 import Ship from "./Components/Ship.jsx";
@@ -21,19 +21,16 @@ class App extends React.Component {
     this.resetGame = this.resetGame.bind(this);
     this.gameOver = this.gameOver.bind(this);
     this.selectShip = this.selectShip.bind(this);
-    this.getCoordiantes = this.getCoordiantes.bind(this);
     this.handleRotateShips = this.handleRotateShips.bind(this);
   }
 
   startGame(e) {
     e.target.disabled = true;
-    e.target.classList.add('disabled');
+    e.target.classList.add("disabled");
     this.setState({
       gameStarted: true,
     });
   }
-
-  handleGameOver;
 
   resetGame() {
     window.location.reload(false);
@@ -41,19 +38,6 @@ class App extends React.Component {
 
   gameOver(winner) {
     this.setState({ gameStarted: false, isWinner: winner });
-  }
-
-  createBoard() {
-    let board = [];
-    for (let i = 0; i < 10; i++) {
-      let row = [];
-      for (let j = 0; j < 10; j++) {
-        row.push(0);
-      }
-      board.push(row);
-    }
-
-    return board;
   }
 
   handleRotateShips() {
@@ -126,80 +110,6 @@ class App extends React.Component {
     ship.remove();
   }
 
-  getCoordiantes(e) {
-    let ship = document.querySelector(".ship-selected");
-    let direction = document
-      .querySelector("#outer-ship-container")
-      .classList.contains("horizontal")
-      ? "horizontal"
-      : "vertical";
-    let size = Number(ship.getAttribute("size"));
-
-    document.querySelectorAll(".square").forEach((sqr) => {
-      sqr.removeEventListener("click", this.getCoordiantes);
-    });
-
-    let type = e.target.id.split("-")[0];
-    let [x, y] = e.target.id.split("-")[1];
-
-    if (type === "p1") {
-      if (this.checkValidPlacement(+x, +y, size, direction)) {
-        this.placeShip(+x, +y, size, direction);
-      }
-    }
-  }
-
-  checkValidPlacement(x, y, size, direction, user = "player") {
-    if (direction === "vertical") {
-      if (x + size > 10) {
-        return false;
-      }
-
-      for (let i = x; i < x + size; i++) {
-        if (this.state[user].board[i][y] !== 0) {
-          return false;
-        }
-      }
-    } else {
-      if (y + size > 10) {
-        return false;
-      }
-      for (let i = y; i < y + size; i++) {
-        if (this.state[user].board[x][i] !== 0) {
-          return false;
-        }
-      }
-    }
-
-    return true;
-  }
-
-  handlePlayerMove(coordinates, e) {
-    console.log(coordinates);
-    // let square = document.getElementById(e.target.id);
-
-    // if (
-    //   !square.classList.contains("clicked") &&
-    //   type === "c1" &&
-    //   this.state.gameStarted &&
-    //   this.state.turn === "player"
-    // ) {
-    //   square.classList.add("clicked");
-
-    //   let [x, y] = e.target.id.split("-")[1];
-    //   let move = this.state.computer.board[x][y] === 0 ? "miss" : "hit";
-
-    //   if (move === "hit") {
-    //     this.checkIfLost("computer");
-    //   }
-
-    //   square.classList.add(move);
-
-    //   this.handleComputerMove();
-    //   // this.setState({turn: 'computer'});
-    // }
-  }
-
   handleComputerMove() {
     const allSquares = document.querySelectorAll(
       ".square:not(.c1):not(.clicked)"
@@ -230,6 +140,11 @@ class App extends React.Component {
           <Button type="Reset Game" handleClick={this.resetGame} />
         </div>
         <div className="board-container">
+          <PlayerBoard
+            type="p1"
+            gameStarted={this.state.gameStarted}
+            handlePlayerMove={this.handlePlayerMove}
+          />
           <ComputerBoard
             gameStarted={this.state.gameStarted}
             gameOver={this.gameOver}

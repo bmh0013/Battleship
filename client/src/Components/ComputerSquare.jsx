@@ -1,6 +1,6 @@
 import React from "react";
 
-class Square extends React.Component {
+class ComputerSquare extends React.Component {
   constructor(props) {
     super(props);
     this.wrapper = React.createRef();
@@ -33,4 +33,4 @@ class Square extends React.Component {
   }
 }
 
-export default Square;
+export default ComputerSquare;

@@ -1,5 +1,5 @@
 import React from "react";
-import Square from "./Square.jsx";
+import ComputerSquare from "./ComputerSquare.jsx";
 
 class ComputerBoard extends React.Component {
   constructor(props) {
@@ -116,7 +116,7 @@ class ComputerBoard extends React.Component {
     return (
       <div className="board">
         {mapBoard.map((sqr, index) => (
-          <Square
+          <ComputerSquare
             coordinates={index}
             key={index}
             handlePlayerMove={this.handlePlayerMove}
