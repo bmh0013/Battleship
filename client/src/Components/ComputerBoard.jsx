@@ -18,6 +18,7 @@ class ComputerBoard extends React.Component {
     this.createBoard();
   }
 
+  // Creates the board for the computer
   createBoard() {
     const board = [];
     const ships = [2, 3, 3, 4, 5];
@@ -33,6 +34,8 @@ class ComputerBoard extends React.Component {
     this.setState({ board }, () => console.log('c:', board));
   }
 
+  // Chooses a random direction and square to place the head of the ship
+  // If a overlapping or out of bounds it reruns the function using same ship
   placeComputerShip(ship, board) {
     let randomDirection = Math.floor(Math.random() * 2);
     let direction = ["horizontal", "vertical"][randomDirection];
@@ -60,6 +63,8 @@ class ComputerBoard extends React.Component {
     }
   }
 
+  // Checks to see if the square is valid for placing ship by checking
+  // if the size is within the bounds and there are no overlapping ships
   checkValidPlacement(x, y, ship, direction, board) {
     if (direction === "vertical") {
       if (x + ship > 10) {
@@ -85,6 +90,8 @@ class ComputerBoard extends React.Component {
     return true;
   }
 
+  // Handles when a player clicks a square on the computer board
+  // Checks matrix for a hit or miss and updates the DOM accordingly
   handlePlayerMove(coordinates, divSquare) {
     const [x, y] = coordinates;
     const move = this.state.board[x][y] === 0 ? "miss" : "hit";

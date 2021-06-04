@@ -28,6 +28,7 @@ class PlayerBoard extends React.Component {
     this.createBoard();
   }
 
+  // Creates the board matrix used to show ship placement
   createBoard() {
     const board = [];
     for (let i = 0; i < 10; i++) {
@@ -36,6 +37,8 @@ class PlayerBoard extends React.Component {
     this.setState({ board });
   }
 
+  // Adds border to ship to indicate it is selected
+  // Removes border of current in case a new ship is selected before placement
   selectShip(ship) {
     if (this.state.currentShip) {
       this.state.currentShip.classList.remove("ship-selected");
@@ -45,7 +48,7 @@ class PlayerBoard extends React.Component {
     this.setState({ currentShip: ship });
   }
 
-  // Gathers coordinates, checks if valid, updates board, then removes current Ship
+  // Receives  coordinates, checks if valid, updates board, then removes current Ship
   placePlayerShip(coordinates, allSquares) {
     const size = this.state.currentShip.attributes.size.value;
     const [x, y] = coordinates;
@@ -57,7 +60,7 @@ class PlayerBoard extends React.Component {
     }
   }
 
-  // Updates the Matrix & DOM, places the ship head on the selected square
+  // Updates the Matrix & DOM based on ship direction, places ship head on the selected square
   updateBoard(x, y, size, allSquares, direction = "vertical") {
     const board = this.state.board;
     if (direction === "vertical") {
