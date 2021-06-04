@@ -30,15 +30,9 @@ class PlayerBoard extends React.Component {
 
   createBoard() {
     const board = [];
-
     for (let i = 0; i < 10; i++) {
-      let row = [];
-      for (let j = 0; j < 10; j++) {
-        row.push(0);
-      }
-      board.push(row);
+      board.push(new Array(10).fill(0));
     }
-
     this.setState({ board });
   }
 

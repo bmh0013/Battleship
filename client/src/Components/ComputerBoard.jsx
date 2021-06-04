@@ -23,18 +23,14 @@ class ComputerBoard extends React.Component {
     const ships = [2, 3, 3, 4, 5];
 
     for (let i = 0; i < 10; i++) {
-      let row = [];
-      for (let j = 0; j < 10; j++) {
-        row.push(0);
-      }
-      board.push(row);
+      board.push(new Array(10).fill(0));
     }
 
     ships.forEach((ship) => {
       this.placeComputerShip(ship, board);
     });
 
-    this.setState({ board }, () => console.log(this.state.board));
+    this.setState({ board }, () => console.log('c:', board));
   }
 
   placeComputerShip(ship, board) {
