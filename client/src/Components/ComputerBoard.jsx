@@ -9,13 +9,6 @@ class ComputerBoard extends React.Component {
       type: "computer",
       board: null,
       hp: 17,
-      shipHP: {
-        '2': 2,
-        '3-1': 3,
-        '3-2': 3,
-        '4': 4,
-        '5': 5
-      }
     };
 
     this.handlePlayerMove = this.handlePlayerMove.bind(this);
@@ -41,7 +34,7 @@ class ComputerBoard extends React.Component {
       this.placeComputerShip(ship, board);
     });
 
-    this.setState( { board }, () => console.log(this.state.board) );
+    this.setState({ board }, () => console.log(this.state.board));
   }
 
   placeComputerShip(ship, board) {
@@ -97,17 +90,23 @@ class ComputerBoard extends React.Component {
   }
 
   handlePlayerMove(coordinates, divSquare) {
-    const board = this.state.board;
     const [x, y] = coordinates;
     const move = this.state.board[x][y] === 0 ? "miss" : "hit";
 
-    if (move === 'hit') {
-      divSquare.classList.add('hit');
+    if (move === "hit") {
+      divSquare.classList.add("hit");
     } else {
-      divSquare.classList.add('miss');
+      divSquare.classList.add("miss");
     }
 
-    console.log(move, divSquare.classList);
+    if (move === "hit") {
+      if (this.state.hp < 2) {
+        this.props.gameOver('player')
+      } else {
+        let hp = this.state.hp - 1;
+        this.setState({ hp }, () => console.log(this.state.hp));
+      }
+    }
   }
 
   render() {

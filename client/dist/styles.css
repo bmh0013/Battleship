@@ -125,3 +125,9 @@ body {
 .hit {
   background-color: red;
 }
+
+.disabled {
+  background: rgb(82, 82, 82);
+  text-shadow: 2px 2px 2px black;
+  box-shadow: 2px 2px 2px grey;
+}

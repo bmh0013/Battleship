@@ -17,22 +17,30 @@ class App extends React.Component {
       },
     };
 
-    this.handleStartGame = this.handleStartGame.bind(this);
-    this.handleRotateShips = this.handleRotateShips.bind(this);
+    this.startGame = this.startGame.bind(this);
+    this.resetGame = this.resetGame.bind(this);
+    this.gameOver = this.gameOver.bind(this);
     this.selectShip = this.selectShip.bind(this);
     this.getCoordiantes = this.getCoordiantes.bind(this);
-    this.handlePlayerMove = this.handlePlayerMove.bind(this);
-    this.handleResetGame = this.handleResetGame.bind(this);
+    this.handleRotateShips = this.handleRotateShips.bind(this);
   }
 
-  handleStartGame() {
+  startGame(e) {
+    e.target.disabled = true;
+    e.target.classList.add('disabled');
     this.setState({
       gameStarted: true,
     });
   }
 
-  handleResetGame() {
+  handleGameOver;
+
+  resetGame() {
     window.location.reload(false);
+  }
+
+  gameOver(winner) {
+    this.setState({ gameStarted: false, isWinner: winner });
   }
 
   createBoard() {
@@ -207,53 +215,31 @@ class App extends React.Component {
     }
   }
 
-  checkIfLost(user) {
-    if (user === "computer") {
-      if (this.state[user].hp < 2) {
-        this.setState({
-          isWinner: true,
-          gameStarted: false,
-        });
-      }
-      this.setState((prevState) => {
-        let computer = Object.assign({}, prevState[user]);
-        computer.hp = computer.hp - 1;
-        console.log("computer:", computer.hp);
-        return { computer };
-      });
-    } else {
-      if (this.state[user].hp < 2) {
-        this.setState({
-          isWinner: false,
-          gameStarted: false,
-        });
-      }
-      this.setState((prevState) => {
-        let player = Object.assign({}, prevState[user]);
-        player.hp = player.hp - 1;
-        console.log("player:", player.hp);
-        return { player };
-      });
-    }
-  }
-
   render() {
+    const winner = this.state.isWinner ? (
+      <div className="winner-winner"> You Won!!!</div>
+    ) : (
+      <div className="winner-winner">Computer Won!</div>
+    );
+
     return (
       <div className="app">
+        {this.state.isWinner !== null && winner}
         <div className="button-container">
-          <Button type="Start Game" handleClick={this.handleStartGame} />
-          <Button type="Reset Game" handleClick={this.handleResetGame} />
+          <Button type="Start Game" handleClick={this.startGame} />
+          <Button type="Reset Game" handleClick={this.resetGame} />
         </div>
         <div className="board-container">
           <ComputerBoard
             gameStarted={this.state.gameStarted}
+            gameOver={this.gameOver}
             handlePlayerMove={this.handlePlayerMove}
           />
         </div>
         <div className="ship-container">ships</div>
       </div>
       /* <div className="button-container">
-          <Button type="Start Game" handleClick={this.handleStartGame} />
+          <Button type="Start Game" handleClick={this.startGame} />
           <Button type="Reset Game" handleClick={this.handleResetGame} />
         </div>
         {this.state.isWinner !== null && (this.state.isWinner ? <div className="winner-winner"> You Won!!!</div> : <div className="winner-winner">Computer Won!</div>)}
