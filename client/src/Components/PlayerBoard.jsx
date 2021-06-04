@@ -11,6 +11,7 @@ class PlayerBoard extends React.Component {
       board: null,
       hp: 17,
       currentShip: null,
+      shipDirection: "vertical",
       ships: [
         { type: "carrier", size: 5, hp: 5 },
         { type: "battleship", size: 4, hp: 4 },
@@ -21,6 +22,7 @@ class PlayerBoard extends React.Component {
     };
 
     this.selectShip = this.selectShip.bind(this);
+    this.rotateShips = this.rotateShips.bind(this);
     this.placePlayerShip = this.placePlayerShip.bind(this);
   }
 
@@ -130,6 +132,12 @@ class PlayerBoard extends React.Component {
     return true;
   }
 
+  rotateShips(e) {
+    const shipDirection =
+      this.state.shipDirection === "vertical" ? "horizontal" : "vertical";
+    this.setState({ shipDirection });
+  }
+
   render() {
     const { gameStarted } = this.props;
     let mapBoard = new Array(100).fill(0);
@@ -147,8 +155,16 @@ class PlayerBoard extends React.Component {
             />
           ))}
         </div>
-        <div className="ship-container">
-          <Ships ships={this.state.ships} selectShip={this.selectShip} />
+        <div className="legend">
+          <img
+            alt="Rotate Ships"
+            src="Rotate.png"
+            className="rotate"
+            onClick={this.rotateShips}
+          />
+          <div className={"ship-container " + this.state.shipDirection}>
+            <Ships ships={this.state.ships} selectShip={this.selectShip} />
+          </div>
         </div>
       </div>
     );

@@ -84,11 +84,9 @@ body {
   flex-direction: column;
 }
 .ship-container {
-  position: absolute;
   border: 1px solid black;
   display: flex;
-  padding: .5em;
-  margin-top: 70vh;
+  padding: .1em;
 }
 .ship {
   width: 30px;
@@ -114,7 +112,7 @@ body {
   border: 1px solid black
 }
 .horizontal {
-  transform: rotate(90deg);
+  transform: rotate(90deg) scaleY(-1);
 }
 .miss {
   background-color: white;
@@ -126,4 +124,18 @@ body {
   background: rgb(82, 82, 82);
   text-shadow: 2px 2px 2px black;
   box-shadow: 2px 2px 2px grey;
+}
+.rotate {
+  position: relative;
+  bottom: 0;
+  right: 0;
+  padding: 1em;
+  transform: rotate(90deg);
+  width: 2em;
+  height: 2em;
+}
+.legend {
+  position: absolute;
+  display: flex;
+  margin-top: 35em;
 }
