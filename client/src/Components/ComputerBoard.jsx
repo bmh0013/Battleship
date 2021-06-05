@@ -31,7 +31,7 @@ class ComputerBoard extends React.Component {
       this.placeComputerShip(ship, board);
     });
 
-    this.setState({ board }, () => console.log('c:', board));
+    this.setState({ board }, () => console.log("c:", board));
   }
 
   // Chooses a random direction and square to place the head of the ship
@@ -104,7 +104,7 @@ class ComputerBoard extends React.Component {
 
     if (move === "hit") {
       if (this.state.hp < 2) {
-        this.props.gameOver('player')
+        this.props.gameOver("player");
       } else {
         let hp = this.state.hp - 1;
         this.setState({ hp }, () => console.log(this.state.hp));
@@ -117,15 +117,18 @@ class ComputerBoard extends React.Component {
     let mapBoard = new Array(100).fill(0);
 
     return (
-      <div className="board">
-        {mapBoard.map((sqr, index) => (
-          <ComputerSquare
-            coordinates={index}
-            key={index}
-            handlePlayerMove={this.handlePlayerMove}
-            gameStarted={gameStarted}
-          />
-        ))}
+      <div className="computer-container">
+        <div className="board">
+          {mapBoard.map((sqr, index) => (
+            <ComputerSquare
+              coordinates={index}
+              key={index}
+              handlePlayerMove={this.handlePlayerMove}
+              gameStarted={gameStarted}
+            />
+          ))}
+        </div>
+        <div className="legend" />
       </div>
     );
   }

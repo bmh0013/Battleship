@@ -63,7 +63,7 @@ class PlayerBoard extends React.Component {
   }
 
   // Updates the Matrix & DOM based on ship direction, places ship head on the selected square
-  updateBoard(x, y, size, allSquares, direction = "vertical") {
+  updateBoard(x, y, size, allSquares, direction = this.state.shipDirection) {
     const board = this.state.board;
     if (direction === "vertical") {
       for (let i = x; i < x + size; i++) {
@@ -91,11 +91,11 @@ class PlayerBoard extends React.Component {
         for (let j = 0; i < allSquares.length; j++) {
           if (allSquares[j].attributes.data.value === coordinates) {
             if (i === y) {
-              allSquares[j].classList.add("head");
+              allSquares[j].classList.add("head", direction);
             } else if (i === y + size - 1) {
-              allSquares[j].classList.add("tail");
+              allSquares[j].classList.add("tail", direction);
             } else {
-              allSquares[j].classList.add("body");
+              allSquares[j].classList.add("body", direction);
             }
             break;
           }
@@ -106,7 +106,7 @@ class PlayerBoard extends React.Component {
 
   // Checks to see if the selected square is valid for placing ship by checking
   // if the size is within the bounds and there are no overlapping ships
-  checkValidPlacement(x, y, size, direction = "vertical") {
+  checkValidPlacement(x, y, size, direction = this.state.shipDirection) {
     const board = this.state.board;
     if (direction === "vertical") {
       if (x + size > 10) {

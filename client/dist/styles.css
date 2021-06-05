@@ -19,11 +19,12 @@ body {
 }
 
 /* ### BOARD ### */
-.player-container {
+.player-container, .computer-container {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  margin: .5em;
 }
 .board-container {
   display: flex;
@@ -39,7 +40,6 @@ body {
   max-height: 320px;
   display: flex;
   flex-wrap: wrap;
-  margin: 20px;
 }
 .square {
   font-size: 30px;
@@ -89,8 +89,9 @@ body {
   padding: .1em;
 }
 .ship {
-  width: 30px;
-  height: 30px;
+  font-size: 30px;
+  width: .8em;
+  height: .8em;
 }
 .head {
   background-color: grey;
@@ -126,16 +127,14 @@ body {
   box-shadow: 2px 2px 2px grey;
 }
 .rotate {
-  position: relative;
-  bottom: 0;
-  right: 0;
-  padding: 1em;
-  transform: rotate(90deg);
   width: 2em;
   height: 2em;
+  padding: .5em;
+  transform: rotate(90deg);
 }
 .legend {
-  position: absolute;
   display: flex;
-  margin-top: 35em;
+  width: 20em;
+  height: 10em;
+  border: 2px solid red;
 }
