@@ -16,6 +16,7 @@ class App extends React.Component {
       computer: {
         board: [],
         hp: 17,
+        moves: []
       },
     };
 
@@ -102,6 +103,7 @@ class App extends React.Component {
             updateAlerts={this.updateAlerts}
             updatePlayerState={this.updatePlayerState}
             player={this.state.player}
+            moves={this.state.computer.moves}
           />
           <Computer
             gameStarted={this.state.gameStarted}

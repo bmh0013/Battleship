@@ -8,6 +8,7 @@ class PlayerSquare extends React.Component {
   }
 
   componentDidMount() {
+    this.props.moves.push(this.wrapper.current);
     this.wrapper.current.addEventListener("click", this.getCoordinates);
   }
 

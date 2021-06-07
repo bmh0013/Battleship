@@ -157,6 +157,7 @@ class Player extends React.Component {
               gameStarted={gameStarted}
               placePlayerShip={this.placePlayerShip}
               currentShip={this.state.currentShip}
+              moves={this.props.moves}
             />
           ))}
         </div>

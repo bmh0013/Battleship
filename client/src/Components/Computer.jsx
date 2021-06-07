@@ -5,10 +5,6 @@ class Computer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      moves: [],
-    };
-
     this.handlePlayerMove = this.handlePlayerMove.bind(this);
   }
 
@@ -106,6 +102,25 @@ class Computer extends React.Component {
     } else {
       divSquare.classList.add("miss");
       this.props.updateAlerts('Miss');
+    }
+
+    if (this.props.gameStarted) {
+      this.handleComputerMove();
+    }
+  }
+
+  handleComputerMove() {
+    const board = this.props.player.board;
+    const moves = this.props.computer.moves;
+    const square = moves.splice(Math.floor(Math.random() * moves.length), 1)[0];
+    const [x, y] = square.attributes.data.value;
+
+
+    if (board[x][y] !== 0) {
+      square.classList.add('hit');
+      this.props.checkHitpoints('player')
+    } else {
+      square.classList.add('miss');
     }
   }
 
