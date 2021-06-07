@@ -6,13 +6,15 @@ class Ship extends React.Component {
   }
 
   render() {
-    const { type, size, selectShip } = this.props;
+    const { type, size, selectShip, direction } = this.props;
     const mapShip = new Array(size - 2).fill(0);
+    const containerDirection = direction === 'vertical' ? 'horizontal' : 'vertical';
+    const turn = direction === 'vertical' ? 'noturn' : 'turn';
 
     return (
-      <div ref={this.wrapper} className={type} size={size}>
+      <div ref={this.wrapper} className={type + ' ' + containerDirection} size={size}>
         <div
-          className={"ship head"}
+          className={"ship head " + turn}
           onClick={() => {
             selectShip(this.wrapper.current);
           }}
@@ -20,7 +22,7 @@ class Ship extends React.Component {
         {mapShip.map((ship, index) => {
           return (
             <div
-              className={"ship body"}
+              className={"ship body " + turn}
               key={index}
               onClick={() => {
                 selectShip(this.wrapper.current);
@@ -29,7 +31,7 @@ class Ship extends React.Component {
           );
         })}
         <div
-          className={"ship tail"}
+          className={"ship tail " + turn}
           onClick={() => {
             selectShip(this.wrapper.current);
           }}

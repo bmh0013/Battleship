@@ -1,7 +1,7 @@
 import React from "react";
 import Ship from "./Ship.jsx";
 
-const Ships = ({ ships, selectShip }) => {
+const Ships = ({ ships, selectShip, direction }) => {
   return (
     <>
       {ships.map((ship, index) => {
@@ -10,6 +10,7 @@ const Ships = ({ ships, selectShip }) => {
             size={ship.size}
             type={ship.type}
             selectShip={selectShip}
+            direction={direction}
             key={index}
           />
         );

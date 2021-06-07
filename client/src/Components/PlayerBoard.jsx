@@ -73,11 +73,11 @@ class PlayerBoard extends React.Component {
         for (let j = 0; i < allSquares.length; j++) {
           if (allSquares[j].attributes.data.value === coordinates) {
             if (i === x) {
-              allSquares[j].classList.add("head");
+              allSquares[j].classList.add("head", direction);
             } else if (i === x + size - 1) {
-              allSquares[j].classList.add("tail");
+              allSquares[j].classList.add("tail", direction);
             } else {
-              allSquares[j].classList.add("body");
+              allSquares[j].classList.add("body", direction);
             }
             break;
           }
@@ -133,8 +133,8 @@ class PlayerBoard extends React.Component {
   }
 
   rotateShips(e) {
-    const shipDirection =
-      this.state.shipDirection === "vertical" ? "horizontal" : "vertical";
+    console.log(e.target.nextSibling);
+    const shipDirection = this.state.shipDirection === "vertical" ? "horizontal" : "vertical";
     this.setState({ shipDirection });
   }
 
@@ -163,7 +163,7 @@ class PlayerBoard extends React.Component {
             onClick={this.rotateShips}
           />
           <div className={"ship-container " + this.state.shipDirection}>
-            <Ships ships={this.state.ships} selectShip={this.selectShip} />
+            <Ships ships={this.state.ships} selectShip={this.selectShip}  direction={this.state.shipDirection} />
           </div>
         </div>
       </div>
