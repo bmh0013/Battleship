@@ -1,14 +1,12 @@
 import React from "react";
 import ComputerSquare from "./ComputerSquare.jsx";
 
-class ComputerBoard extends React.Component {
+class Computer extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      type: "computer",
-      board: null,
-      hp: 17,
+      moves: [],
     };
 
     this.handlePlayerMove = this.handlePlayerMove.bind(this);
@@ -21,17 +19,23 @@ class ComputerBoard extends React.Component {
   // Creates the board for the computer
   createBoard() {
     const board = [];
+    const moves = [];
     const ships = [2, 3, 3, 4, 5];
 
     for (let i = 0; i < 10; i++) {
       board.push(new Array(10).fill(0));
+      for (let j = 0; j < 10; j++) {
+        moves.push(i + '' + j);
+      }
     }
 
     ships.forEach((ship) => {
       this.placeComputerShip(ship, board);
     });
 
-    this.setState({ board }, () => console.log("c:", board));
+    this.props.computer.board = board;
+    this.props.updateComputerState(this.props.computer);
+    this.setState({moves})
   }
 
   // Chooses a random direction and square to place the head of the ship
@@ -94,23 +98,13 @@ class ComputerBoard extends React.Component {
   // Checks matrix for a hit or miss and updates the DOM accordingly
   handlePlayerMove(coordinates, divSquare) {
     const [x, y] = coordinates;
-    const move = this.state.board[x][y] === 0 ? "miss" : "hit";
+    const move = this.props.computer.board[x][y] === 0 ? "miss" : "hit";
 
     if (move === "hit") {
       divSquare.classList.add("hit");
+      this.props.checkHitpoints('computer')
     } else {
       divSquare.classList.add("miss");
-    }
-
-    if (move === "hit") {
-      if (this.state.hp < 2) {
-        this.props.gameOver("player");
-      } else {
-        let hp = this.state.hp - 1;
-        this.setState({ hp }, () => console.log(this.state.hp));
-        this.props.updateAlerts('Hit!');
-      }
-    } else {
       this.props.updateAlerts('Miss');
     }
   }
@@ -137,4 +131,4 @@ class ComputerBoard extends React.Component {
   }
 }
 
-export default ComputerBoard;
+export default Computer;

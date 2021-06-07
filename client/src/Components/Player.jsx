@@ -2,14 +2,11 @@ import React from "react";
 import PlayerSquare from "./PlayerSquare.jsx";
 import Ships from "./Ships.jsx";
 
-class PlayerBoard extends React.Component {
+class Player extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      type: "player",
-      board: null,
-      hp: 17,
       currentShip: null,
       shipDirection: "vertical",
       ships: [
@@ -36,7 +33,8 @@ class PlayerBoard extends React.Component {
     for (let i = 0; i < 10; i++) {
       board.push(new Array(10).fill(0));
     }
-    this.setState({ board });
+    this.props.player.board = board;
+    this.props.updatePlayerState(this.props.player);
   }
 
   // Adds border to ship to indicate it is selected
@@ -64,7 +62,7 @@ class PlayerBoard extends React.Component {
 
   // Updates the Matrix & DOM based on ship direction, places ship head on the selected square
   updateBoard(x, y, size, allSquares, direction = this.state.shipDirection) {
-    const board = this.state.board;
+    const board = this.props.player.board;
 
     if (direction === "vertical") {
       for (let i = x; i < x + size; i++) {
@@ -92,11 +90,11 @@ class PlayerBoard extends React.Component {
         for (let j = 0; i < allSquares.length; j++) {
           if (allSquares[j].attributes.data.value === coordinates) {
             if (i === y) {
-              allSquares[j].classList.add("head", direction, 'turn');
+              allSquares[j].classList.add("head", direction, "turn");
             } else if (i === y + size - 1) {
-              allSquares[j].classList.add("tail", direction, 'turn');
+              allSquares[j].classList.add("tail", direction, "turn");
             } else {
-              allSquares[j].classList.add("body", direction, 'turn');
+              allSquares[j].classList.add("body", direction, "turn");
             }
             break;
           }
@@ -108,38 +106,40 @@ class PlayerBoard extends React.Component {
   // Checks to see if the selected square is valid for placing ship by checking
   // if the size is within the bounds and there are no overlapping ships
   checkValidPlacement(x, y, size, direction = this.state.shipDirection) {
-    const board = this.state.board;
+    const { board } = this.props.player;
+
     if (direction === "vertical") {
       if (x + size > 10) {
-        this.props.updateAlerts('Invalid Placement')
+        this.props.updateAlerts("Invalid Placement");
         return false;
       }
 
       for (let i = x; i < x + size; i++) {
         if (board[i][y] !== 0) {
-          this.props.updateAlerts('Invalid Placement')
+          this.props.updateAlerts("Invalid Placement");
           return false;
         }
       }
     } else {
       if (y + size > 10) {
-        this.props.updateAlerts('Invalid Placement')
+        this.props.updateAlerts("Invalid Placement");
         return false;
       }
       for (let i = y; i < y + size; i++) {
         if (board[x][i] !== 0) {
-          this.props.updateAlerts('Invalid Placement')
+          this.props.updateAlerts("Invalid Placement");
           return false;
         }
       }
     }
 
-    this.props.updateAlerts('Place your ships')
+    this.props.updateAlerts("Place your ships");
     return true;
   }
 
   rotateShips(e) {
-    const shipDirection = this.state.shipDirection === "vertical" ? "horizontal" : "vertical";
+    const shipDirection =
+      this.state.shipDirection === "vertical" ? "horizontal" : "vertical";
     this.setState({ shipDirection });
   }
 
@@ -168,7 +168,11 @@ class PlayerBoard extends React.Component {
             onClick={this.rotateShips}
           />
           <div className={"ship-container " + this.state.shipDirection}>
-            <Ships ships={this.state.ships} selectShip={this.selectShip}  direction={this.state.shipDirection} />
+            <Ships
+              ships={this.state.ships}
+              selectShip={this.selectShip}
+              direction={this.state.shipDirection}
+            />
           </div>
         </div>
       </div>
@@ -176,4 +180,4 @@ class PlayerBoard extends React.Component {
   }
 }
 
-export default PlayerBoard;
+export default Player;
