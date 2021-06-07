@@ -21,7 +21,7 @@ class Computer extends React.Component {
     for (let i = 0; i < 10; i++) {
       board.push(new Array(10).fill(0));
       for (let j = 0; j < 10; j++) {
-        moves.push(i + '' + j);
+        moves.push(i + "" + j);
       }
     }
 
@@ -31,7 +31,7 @@ class Computer extends React.Component {
 
     this.props.computer.board = board;
     this.props.updateComputerState(this.props.computer);
-    this.setState({moves})
+    this.setState({ moves });
   }
 
   // Chooses a random direction and square to place the head of the ship
@@ -98,10 +98,11 @@ class Computer extends React.Component {
 
     if (move === "hit") {
       divSquare.classList.add("hit");
-      this.props.checkHitpoints('computer')
+      this.props.updateAlerts('Hit!')
+      this.props.checkHitpoints("computer");
     } else {
       divSquare.classList.add("miss");
-      this.props.updateAlerts('Miss');
+      this.props.updateAlerts("Miss");
     }
 
     if (this.props.gameStarted) {
@@ -115,12 +116,11 @@ class Computer extends React.Component {
     const square = moves.splice(Math.floor(Math.random() * moves.length), 1)[0];
     const [x, y] = square.attributes.data.value;
 
-
     if (board[x][y] !== 0) {
-      square.classList.add('hit');
-      this.props.checkHitpoints('player')
+      square.classList.add("hit");
+      this.props.checkHitpoints("player");
     } else {
-      square.classList.add('miss');
+      square.classList.add("miss");
     }
   }
 
@@ -140,7 +140,9 @@ class Computer extends React.Component {
             />
           ))}
         </div>
-        <div className="legend" />
+        <div className="legend">
+          <div className="alerts">{this.props.alerts}</div>
+        </div>
       </div>
     );
   }

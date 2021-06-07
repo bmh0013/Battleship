@@ -1,7 +1,7 @@
 import React from "react";
+import Button from "./Components/Button.jsx";
 import Player from "./Components/Player.jsx";
 import Computer from "./Components/Computer.jsx";
-import Button from "./Components/Button.jsx";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class App extends React.Component {
       computer: {
         board: [],
         hp: 17,
-        moves: []
+        moves: [],
       },
     };
 
@@ -83,14 +83,15 @@ class App extends React.Component {
       this.gameOver(user);
     } else {
       user.hp--;
-      this.setState({ [user]: user }, () => console.log(this.state[user]));
+      this.setState({ [user]: user }, () =>
+        console.log(this.state[user])
+      );
     }
   }
 
   render() {
     return (
       <div className="app">
-        <div className="alerts">{this.state.alerts}</div>
         <div className="button-container">
           <Button type="Start Game" handleClick={this.startGame} />
           <Button type="Reset Game" handleClick={this.resetGame} />
@@ -108,12 +109,12 @@ class App extends React.Component {
           <Computer
             gameStarted={this.state.gameStarted}
             gameOver={this.gameOver}
-            handlePlayerMove={this.handlePlayerMove}
             updateAlerts={this.updateAlerts}
             player={this.state.player}
             computer={this.state.computer}
             updateComputerState={this.updateComputerState}
             checkHitpoints={this.checkHitpoints}
+            alerts={this.state.alerts}
           />
         </div>
       </div>

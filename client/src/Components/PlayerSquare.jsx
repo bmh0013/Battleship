@@ -17,7 +17,10 @@ class PlayerSquare extends React.Component {
   getCoordinates() {
     if (this.props.currentShip) {
       let divSquare = this.wrapper.current;
-      this.props.placePlayerShip(divSquare.attributes.data.value, divSquare.parentNode.childNodes);
+      this.props.placePlayerShip(
+        divSquare.attributes.data.value,
+        divSquare.parentNode.childNodes
+      );
     }
   }
 

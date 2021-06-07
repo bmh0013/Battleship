@@ -1,12 +1,13 @@
 body {
+  font-size: 10px;
   margin: 0;
   padding: 0;
-  background-image: url('./Battleship.jpeg');
+  height: 100vh;
+  background-image: url("./Battleship.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: rgba(255,255,255,0.6);
-  height: 100vh;
   background-position-x: -1em;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 /* ### APP ### */
@@ -19,37 +20,29 @@ body {
 }
 
 /* ### BOARD ### */
-.player-container, .computer-container {
+.player-container,
+.computer-container {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  margin: .5em;
+  margin: 0.5em;
 }
 .board-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
+  width: 100%;
+  justify-content: center;
 }
 .board {
-  background-color: rgb(0, 162, 255);
-  min-width: 320px;
-  min-height: 320px;
-  max-width: 320px;
-  max-height: 320px;
   display: flex;
   flex-wrap: wrap;
+  background-color: rgb(0, 162, 255);
+  width: 30em;
 }
 .square {
-  font-size: 30px;
-  width: 1em;
-  height: 1em;
-  border: 1px solid rgb(50, 50, 50);
-}
-
-.winner-winner {
-  font-size: 70px;
+  width: 2.8em;
+  height: 2.8em;
+  border: 0.1em solid black;
 }
 
 /* ### START BUTTON ### */
@@ -58,26 +51,38 @@ body {
   justify-content: space-between;
 }
 .button {
-  padding: 10px;
-  background: linear-gradient(290deg, rgba(249,50,50) 0%, rgba(255,130,0) 100%);
+  font-size: 20px;
+  padding: 0.5em;
+  background: linear-gradient(
+    290deg,
+    rgba(249, 50, 50) 0%,
+    rgba(255, 130, 0) 100%
+  );
   color: white;
   border: none;
-  font-size: 24px;
-  border-radius: 10px;
-  text-shadow: 2px 2px 2px rgb(173, 78, 0);
-  box-shadow: 2px 2px 4px grey;
+  border-radius: 1em;
+  text-shadow: 0.2em 0.2em 0.2em rgb(173, 78, 0);
+  box-shadow: 0.2em 0.2em 0.4em grey;
 }
 .button:hover {
   cursor: pointer;
 }
 .button:active {
-  background: linear-gradient(290deg,rgb(245, 68, 68) 0%, rgb(248, 143, 30) 100%);
-  box-shadow: 2px 2px 4px rgb(66, 66, 66);
+  background: linear-gradient(
+    290deg,
+    rgb(245, 68, 68) 0%,
+    rgb(248, 143, 30) 100%
+  );
+  box-shadow: 0.2em 0.2em 0.4em rgb(66, 66, 66);
 }
 
 /* ### SHIPS ### */
-.carrier, .battleship, .cruiser, .submarine, .destroyer {
-  padding: .5em;
+.carrier,
+.battleship,
+.cruiser,
+.submarine,
+.destroyer {
+  padding: 0.2em;
 }
 .rotate-ship-container {
   display: flex;
@@ -85,12 +90,12 @@ body {
 }
 .ship-container {
   display: flex;
-  padding: .1em;
+  padding: 0.1em;
 }
 .ship {
   font-size: 30px;
-  width: .8em;
-  height: .8em;
+  width: 0.8em;
+  height: 0.8em;
 }
 .head {
   background-color: rgb(80, 80, 80);
@@ -112,7 +117,7 @@ body {
   box-shadow: 1px 1px 1px rgb(155, 155, 155);
 }
 .ship-selected {
-  border: 1px solid black
+  border: 1px solid black;
 }
 .horizontal {
   display: flex;
@@ -134,18 +139,28 @@ body {
   text-shadow: 2px 2px 2px black;
   box-shadow: 2px 2px 2px grey;
 }
-.rotate {
-  width: 2em;
-  height: 2em;
-  padding: .5em;
+.rotate-icon {
+  width: 1em;
+  height: 1em;
+  padding: 0.1em;
   transform: rotate(90deg);
 }
 .turn {
   transform: rotate(90deg) scaleY(-1);
 }
 .legend {
+  font-size: 25px;
   display: flex;
-  width: 20em;
-  height: 10em;
-  background-color: rgba(82, 82, 82, .25);;
+  height: 6em;
+  background-color: rgba(82, 82, 82, 0.25);
+  width: 100%;
+}
+.alerts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: white;
+  text-shadow: 0.05em 0.05em 0.05em black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

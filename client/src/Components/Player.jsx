@@ -165,7 +165,7 @@ class Player extends React.Component {
           <img
             alt="Rotate Ships"
             src="Rotate.png"
-            className="rotate"
+            className="rotate-icon"
             onClick={this.rotateShips}
           />
           <div className={"ship-container " + this.state.shipDirection}>
