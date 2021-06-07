@@ -65,6 +65,7 @@ class PlayerBoard extends React.Component {
   // Updates the Matrix & DOM based on ship direction, places ship head on the selected square
   updateBoard(x, y, size, allSquares, direction = this.state.shipDirection) {
     const board = this.state.board;
+
     if (direction === "vertical") {
       for (let i = x; i < x + size; i++) {
         const coordinates = "" + i + y;
@@ -91,11 +92,11 @@ class PlayerBoard extends React.Component {
         for (let j = 0; i < allSquares.length; j++) {
           if (allSquares[j].attributes.data.value === coordinates) {
             if (i === y) {
-              allSquares[j].classList.add("head", direction);
+              allSquares[j].classList.add("head", direction, 'turn');
             } else if (i === y + size - 1) {
-              allSquares[j].classList.add("tail", direction);
+              allSquares[j].classList.add("tail", direction, 'turn');
             } else {
-              allSquares[j].classList.add("body", direction);
+              allSquares[j].classList.add("body", direction, 'turn');
             }
             break;
           }
@@ -133,7 +134,6 @@ class PlayerBoard extends React.Component {
   }
 
   rotateShips(e) {
-    console.log(e.target.nextSibling);
     const shipDirection = this.state.shipDirection === "vertical" ? "horizontal" : "vertical";
     this.setState({ shipDirection });
   }

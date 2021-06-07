@@ -84,7 +84,6 @@ body {
   flex-direction: column;
 }
 .ship-container {
-  border: 1px solid black;
   display: flex;
   padding: .1em;
 }
@@ -94,20 +93,23 @@ body {
   height: .8em;
 }
 .head {
-  background-color: grey;
+  background-color: rgb(80, 80, 80);
   border-top-right-radius: 50%;
   border-top-left-radius: 50%;
   cursor: pointer;
+  box-shadow: 1px 1px 1px rgb(155, 155, 155);
 }
 .body {
-  background-color: grey;
+  background-color: rgb(80, 80, 80);
   cursor: pointer;
+  box-shadow: 1px 1px 1px rgb(155, 155, 155);
 }
 .tail {
-  background-color: grey;
+  background-color: rgb(80, 80, 80);
   border-bottom-right-radius: 50%;
   border-bottom-left-radius: 50%;
   cursor: pointer;
+  box-shadow: 1px 1px 1px rgb(155, 155, 155);
 }
 .ship-selected {
   border: 1px solid black
@@ -145,5 +147,5 @@ body {
   display: flex;
   width: 20em;
   height: 10em;
-  border: 2px solid red;
+  background-color: rgba(82, 82, 82, .5);;
 }
