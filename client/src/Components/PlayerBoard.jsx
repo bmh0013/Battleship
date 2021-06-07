@@ -111,25 +111,30 @@ class PlayerBoard extends React.Component {
     const board = this.state.board;
     if (direction === "vertical") {
       if (x + size > 10) {
+        this.props.updateAlerts('Invalid Placement')
         return false;
       }
 
       for (let i = x; i < x + size; i++) {
         if (board[i][y] !== 0) {
+          this.props.updateAlerts('Invalid Placement')
           return false;
         }
       }
     } else {
       if (y + size > 10) {
+        this.props.updateAlerts('Invalid Placement')
         return false;
       }
       for (let i = y; i < y + size; i++) {
         if (board[x][i] !== 0) {
+          this.props.updateAlerts('Invalid Placement')
           return false;
         }
       }
     }
 
+    this.props.updateAlerts('Place your ships')
     return true;
   }
 

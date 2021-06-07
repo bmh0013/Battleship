@@ -8,20 +8,30 @@ class App extends React.Component {
     super(props);
     this.state = {
       gameStarted: false,
-      isWinner: null,
+      alerts: "Place your ships",
     };
 
     this.startGame = this.startGame.bind(this);
     this.resetGame = this.resetGame.bind(this);
     this.gameOver = this.gameOver.bind(this);
+    this.updateAlerts = this.updateAlerts.bind(this);
   }
 
   startGame(e) {
-    e.target.disabled = true;
-    e.target.classList.add("disabled");
-    this.setState({
-      gameStarted: true,
-    });
+    const ships = document.querySelector(".ship-container");
+
+    if (!ships.children.length) {
+      e.target.disabled = true;
+      e.target.classList.add("disabled");
+      this.setState({
+        gameStarted: true,
+        alerts: "You're turn"
+      });
+    } else {
+      this.setState({
+        alerts: "You must place all your ships before you can start",
+      });
+    }
   }
 
   resetGame() {
@@ -29,19 +39,21 @@ class App extends React.Component {
   }
 
   gameOver(winner) {
-    this.setState({ gameStarted: false, isWinner: winner });
+    if (winner === 'player') {
+      this.setState({ gameStarted: false, alerts: 'You won!'});
+    } else {
+      this.setState({ gameStarted: false, alerts: 'You lost :('});
+    }
+  }
+
+  updateAlerts(message) {
+    this.setState({ alerts: message });
   }
 
   render() {
-    const winner = this.state.isWinner ? (
-      <div className="winner-winner"> You Won!!!</div>
-    ) : (
-      <div className="winner-winner">Computer Won!</div>
-    );
-
     return (
       <div className="app">
-        {this.state.isWinner !== null && winner}
+        <div className="alerts">{this.state.alerts}</div>
         <div className="button-container">
           <Button type="Start Game" handleClick={this.startGame} />
           <Button type="Reset Game" handleClick={this.resetGame} />
@@ -51,11 +63,13 @@ class App extends React.Component {
             type="p1"
             gameStarted={this.state.gameStarted}
             handlePlayerMove={this.handlePlayerMove}
+            updateAlerts={this.updateAlerts}
           />
           <ComputerBoard
             gameStarted={this.state.gameStarted}
             gameOver={this.gameOver}
             handlePlayerMove={this.handlePlayerMove}
+            updateAlerts={this.updateAlerts}
           />
         </div>
       </div>

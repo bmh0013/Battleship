@@ -108,7 +108,10 @@ class ComputerBoard extends React.Component {
       } else {
         let hp = this.state.hp - 1;
         this.setState({ hp }, () => console.log(this.state.hp));
+        this.props.updateAlerts('Hit!');
       }
+    } else {
+      this.props.updateAlerts('Miss');
     }
   }
 
