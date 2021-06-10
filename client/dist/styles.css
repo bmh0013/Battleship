@@ -149,17 +149,18 @@ body {
   transform: rotate(90deg) scaleY(-1);
 }
 .legend {
-  font-size: 25px;
+  font-size: 29px;
   display: flex;
-  height: 6em;
+  height: 5em;
   background-color: rgba(82, 82, 82, 0.25);
-  width: 100%;
+  width: 10em;
 }
 .alerts {
   display: flex;
-  justify-content: center;
+  text-align: center;
   align-items: center;
-  width: 100%;
+  justify-content: center;
+  width: 10em;
   color: white;
   text-shadow: 0.05em 0.05em 0.05em black;
   font-family: Verdana, Geneva, Tahoma, sans-serif;

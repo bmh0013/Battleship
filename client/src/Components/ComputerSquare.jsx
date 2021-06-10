@@ -8,14 +8,14 @@ class ComputerSquare extends React.Component {
   }
 
   componentDidMount() {
-    this.wrapper.current.addEventListener('click', this.getCoordiantes);
+    this.wrapper.current.addEventListener("click", this.getCoordiantes);
   }
 
   getCoordiantes() {
     if (this.props.gameStarted) {
       let divSquare = this.wrapper.current;
-      divSquare.removeEventListener('click', this.getCoordiantes);
-      this.props.handlePlayerMove(divSquare.attributes.data.value, divSquare);
+      divSquare.removeEventListener("click", this.getCoordiantes);
+      this.props.playerMove(divSquare.attributes.data.value, divSquare);
     }
   }
 
@@ -23,13 +23,7 @@ class ComputerSquare extends React.Component {
     let { coordinates } = this.props;
     coordinates = String(coordinates).padStart(2, 0);
 
-    return (
-      <div
-        ref={this.wrapper}
-        className={"square"}
-        data={coordinates}
-      />
-    );
+    return <div ref={this.wrapper} className={"square"} data={coordinates} />;
   }
 }
 
