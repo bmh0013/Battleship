@@ -22,8 +22,9 @@ Battleship game I made using React with Class components
 ## Setup
 To run this project, download it locally using git:
 ```
-$ git https://github.com/bmh0013/Battleship.git
+$ git clone https://github.com/bmh0013/Battleship.git
 $ cd Battleship
+$ npm install
 $ npm run build
 $ npm start
 ```
