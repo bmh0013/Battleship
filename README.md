@@ -4,7 +4,6 @@ Battleship game I made using React with Class components
 
 ## In Action
 
-<img src="https://thumbs.gfycat.com/RegularSatisfiedCollie-size_restricted.gif" width="300">
 <img src="https://thumbs.gfycat.com/SnoopyEqualFoxterrier-size_restricted.gif" width="300">
 
 # Stack
