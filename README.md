@@ -1,4 +1,4 @@
-# Tip Calculator & Bill Splitter
+# Battleship Game
 
 Battleship game I made using React with Class components
 
